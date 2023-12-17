@@ -1,0 +1,23 @@
+test 1 (không đến được đích)
+ma trận ban đầu:
+[2,0,6],[8,7,5],[4,3,1]
+ma trận đích
+[1,2,3],[8,0,4],[7,6,5]
+
+
+tes2( đến được đích)- 25 bước
+ma trận ban đầu:
+[2,0,6],[8,7,5],[4,3,1]
+ma trận đích
+[1,2,3],[4,5,6],[7,8,0]
+
+
+test 3  ( đến được đích) -5 bước
+ma trận ban đầu:
+[2,8,3],[1,6,4],[7,0,5]
+ma trận đích
+[1,2,3],[8,0,4],[7,6,5]
+
+
+tại sao p có reverse đảo chièue
+vì xây đường đi từ cuối lên đầu để hiển thị từ đầu đến đích thì p reverse
