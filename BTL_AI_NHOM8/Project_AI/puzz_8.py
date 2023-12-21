@@ -14,14 +14,14 @@ left_junction = '\u251C'        #Nó có hình dạng như sau: ├.
 
 #bar color
 # bar = Style.BRIGHT + Fore.CYAN + '\u2502' + Fore.RESET + Style.RESET_ALL
-bar = Style.BRIGHT + Fore.BLUE + '\u2502' + Fore.RESET + Style.RESET_ALL#Nó có hình dạng như sau: |
+bar = Style.BRIGHT + Fore.YELLOW + '\u2502' + Fore.RESET + Style.RESET_ALL#Nó có hình dạng như sau: |
 dash = '\u2500' #Nó có hình dạng như sau: -
 tripdash = dash + dash + dash
 
 #Tao khung 9 o nhu game 8 so
-first_line =Style.BRIGHT + Fore.BLUE + left_up_angle + tripdash + top_junction + tripdash + top_junction + tripdash + right_up_angle + Fore.RESET + Style.RESET_ALL
-middel_line = Style.BRIGHT + Fore.BLUE + left_junction + tripdash + middle_junction + tripdash + middle_junction + tripdash + right_junction + Fore.RESET + Style.RESET_ALL
-last_line = Style.BRIGHT + Fore.BLUE + left_down_angle +tripdash + bottom_junction + tripdash + bottom_junction + tripdash + right_down_angle + Fore.RESET + Style.RESET_ALL
+first_line =Style.BRIGHT + Fore.YELLOW + left_up_angle + tripdash + top_junction + tripdash + top_junction + tripdash + right_up_angle + Fore.RESET + Style.RESET_ALL
+middel_line = Style.BRIGHT + Fore.YELLOW + left_junction + tripdash + middle_junction + tripdash + middle_junction + tripdash + right_junction + Fore.RESET + Style.RESET_ALL
+last_line = Style.BRIGHT + Fore.YELLOW + left_down_angle +tripdash + bottom_junction + tripdash + bottom_junction + tripdash + right_down_angle + Fore.RESET + Style.RESET_ALL
 
 # print(first_line)
 # print(middel_line)
@@ -89,6 +89,7 @@ def get_index_element(current_state, element):
 
 #Hàm tính toán chi phí
 def cost_calculation(current_state):
+
     cost = 0
     for row in range(len(current_state)):
         for col in range(len(current_state[0])):
@@ -121,7 +122,7 @@ class Node:
 # f = g+h : lấy f nhỏ nhất làm ma trận tiep theo
 
 
-#Lấy danh sách node
+#Lấy danh sách node kề
 def get_list_node(node):
     listNode = []
     index_empty = get_index_element(node.current_node, 0)
@@ -198,47 +199,46 @@ def is_backtracking_goal(matrix):
     reverse_count = get_reverse_count(array)
     # Chia hết cho 2, tức là số lượng đảo chiều chẵn thì quay lui về trạng thái đích thành công!
     return (reverse_count % 2 ==0)
-
+# goal = [[1,2,3],[4,5,6],[7,8,0]]
 
 # Convert ma trận để kiểm tra trạng thái đầu có thể tiến tới trạng thái đích được hay không
 def process_matrix(TEST, INIT):
     n = len(TEST)
-
-    # Khởi tạo mảng TMP với giá trị từ 1 đến n-1
-    # TMP = [0] * (n * n)
-
-    # Khởi tạo từ điển để lưu trữ chỉ số của mỗi giá trị trong TMP
     index_dict = {}
-
     cnt = 1
-
-    # Duyệt qua ma trận TEST và gán giá trị vào mảng TMP và từ điển
     for row in range(n):
         for col in range(n):
             value = TEST[row][col]
             # TMP[cnt - 1] = value  # Chỉ số của TMP giảm đi 1
             index_dict[value] = cnt  # Lưu chỉ số vào từ điển
             cnt += 1
-
     index_dict[TEST[2][2]] = 0
-
     # Khởi tạo ma trận CHECK với các phần tử ban đầu là 0
     CHECK = [[0 for _ in range(n)] for _ in range(n)]
-
     for row in range(n):
         for col in range(n):
             value = INIT[row][col]
             CHECK[row][col] = index_dict[value]  # Sử dụng từ điển để lấy chỉ số
 
     return CHECK
+# tes2( đến được đích)- 25 bước
+# ma trận ban đầu:
+# [2,0,6],[8,7,5],[4,3,1]
+# ma trận đích
+# [1,2,3],[4,5,6],[7,8,0]
 
+# dau = [
+#     [5, 6, 1],
+#     [2, 4, 0],
+#     [8, 3, 7]
+# ]
+#
+# dich = [
+#     [1, 3, 4],
+#     [7, 8, 6],
+#     [0, 5, 2]
+# ]
 
-#initial_state_matrix = [[2,8,3],[1,6,4],[7,0,5]]
-#initial_state_matrix = [[2,0,6],[8,7,5],[4,3,1]]
-#goal = [[1,2,3],[8,0,4],[7,6,5]]
-#Check = process_matrix(goal,initial_state_matrix)
-#print(Check)
-#is_backtracking_goal(Check)
 if __name__ == '__main__':
     initial_state_matrix = input_matrix_initial()
     goal = input_matrix_goal()
@@ -247,6 +247,7 @@ if __name__ == '__main__':
         print("Ma trận khởi tạo có thể trở thành ma trận đích!")
     else:
         print("Ma trận khởi tạo không thể trở thành ma trận đích!")
+        exit()
 
     br =  a_star(initial_state_matrix)
     print("Tổng số bước di chuyển: ", len(br)-1)
